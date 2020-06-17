@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+    "http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+    <constant name="struts.devMode" value="true"></constant>
+	<package name="default" namespace="/" extends="struts-default">
+	 <interceptors>
+           
+            <interceptor name="loginInterceptor" class="cn.Interceptor.Interceptor"></interceptor>
+            <interceptor name="testInterceptor" class="cn.Interceptor.InterceptorTest"></interceptor>
+            	
+            <interceptor-stack name="myStack">       
+                <interceptor-ref name="loginInterceptor">
+                    <param name="excludeMethods">login,register</param>
+                </interceptor-ref>
+                <interceptor-ref name="defaultStack"></interceptor-ref>
+            </interceptor-stack>
+                   		
+            <interceptor-stack name="testStack">
+            	<interceptor-ref name="defaultStack" />			
+            	<interceptor-ref name="testInterceptor" />		
+            	
+            </interceptor-stack>
+        </interceptors>
+     
+        <default-interceptor-ref name="myStack"></default-interceptor-ref>
+       
+        <global-results>
+            <result name="error">/error.jsp</result>
+            <result name="login">/login.jsp</result>
+        </global-results>
+        
+       <global-exception-mappings>
+        
+            <exception-mapping result="error" exception="java.lang.RuntimeException"></exception-mapping>
+        </global-exception-mappings>
+        
+        
+ 	   <action name="login" class="cn.action.LoginAction" method="login">
+			<!-- <result name="success">/META-INF/page/welcome.jsp</result> -->
+			<result name="success">/main1.jsp</result>
+			<result name="error">/login.jsp</result>
+		</action>
+		
+		<action name="register" class="cn.action.LoginAction" method="register">
+			<!-- <result name="success">/META-INF/page/welcome.jsp</result> -->
+			<result name="success">/login.jsp</result>		
+		</action>
+		
+		<action name="usermodify" class="cn.action.LoginAction" method="usermodify">
+			<result name="success">/modify.jsp</result>	
+		</action> 
+		 
+		 <action name="saveUser" class="cn.action.LoginAction" method="saveUser">
+			<result name="success">/righmain.jsp</result>
+			<result name="error">/righmain.jsp</result>
+		</action>
+		
+<!-- 用户的action -->
+        <action name="modify" class="cn.action.LoginAction" method="modify">
+			<result name="success">/user/modifyuser.jsp</result>
+			<result name="error">/user/listuser.jsp</result>
+		</action>
+		 
+		<action name="saveAllUser" class="cn.action.LoginAction" method="saveAllUser">
+			<result name="success">/user/listuser.jsp</result>
+			<result name="error">/user/listuser.jsp</result>
+		</action>
+		
+		<action name="delete" class="cn.action.LoginAction" method="delete">
+			<result name="success">/user/listuser.jsp</result>
+			<result name="error">/user/listuser.jsp</result>
+		</action>
+		
+		<action name="addUser" class="cn.action.LoginAction" method="addUser">
+			<result name="success">/user/listuser.jsp</result>
+			<result name="error">/user/listuser.jsp</result>	
+		</action> 
+		
+		<action name="search" class="cn.action.LoginAction" method="search">
+			<interceptor-ref name="testStack"></interceptor-ref>
+			<result name="success" >/user/listuser.jsp</result>	
+			<result name="error">/user/listuser.jsp</result>		
+		</action> 
+		
+		<action name="adduser" class="cn.action.LoginAction" method="adduser">
+			<result name="success">/user/adduser.jsp</result>		
+		</action> 
+<!-- 用户的action -->
+
+
+<!-- 食品的action -->
+		
+		<action name="modifyFood" class="cn.action.FoodAction" method="modifyFood">
+			<result name="success">/food/foodmodify.jsp</result>
+			<result name="error">/food/foodlist.jsp</result>
+		</action>
+		 
+		<action name="saveFood" class="cn.action.FoodAction" method="saveFood">		   
+			<result name="success">/food/foodlist.jsp</result>
+			<result name="error">/food/foodlist.jsp</result>
+		</action>
+		
+		<action name="deleteFood" class="cn.action.FoodAction" method="deleteFood">
+		<interceptor-ref name="testStack"></interceptor-ref>
+			<result name="success">/food/foodlist.jsp</result>
+			<result name="error">/food/foodlist.jsp</result>
+		</action>
+		
+	 
+		<action name="addFood" class="cn.action.FoodAction" method="addFood">
+			<result name="success">/food/foodlist.jsp</result>
+			<result name="error">/food/foodlist.jsp</result>	
+		</action> 
+		
+		<action name="searchFood" class="cn.action.FoodAction" method="searchFood" >
+			<result name="success">/food/foodlist.jsp</result>	
+			<result name="error">/food/foodlist.jsp</result>	
+			
+		</action> 
+		
+		<action name="add" class="cn.action.FoodAction" method="add">
+		 <interceptor-ref name="testStack"></interceptor-ref>
+			<result name="success">/food/addfood.jsp</result>
+			<result name="error">/error.jsp</result>		
+		</action> 
+
+<!-- 食品的action -->
+
+<!-- 食品入库的action -->		
+		<action name="modifyInputFood" class="cn.action.InputFoodAction" method="modifyInputFood">
+			<result name="success">/inputfood/modifyInputFood.jsp</result>
+			<result name="error">/inputfood/InputFoodlist.jsp</result>
+		</action>
+		 
+		<action name="saveInputFood" class="cn.action.InputFoodAction" method="saveInputFood">
+			<result name="success">/inputfood/InputFoodlist.jsp</result>
+			<result name="error">/inputfood/InputFoodlist.jsp</result>
+		</action>
+		
+		<action name="deleteInputFood" class="cn.action.InputFoodAction" method="deleteInputFood">
+		<interceptor-ref name="testStack"></interceptor-ref>
+			<result name="success">/inputfood/InputFoodlist.jsp</result>
+			<result name="error">/inputfood/InputFoodlist.jsp</result>
+		</action>
+		
+	 
+		<action name="addInputFood" class="cn.action.InputFoodAction" method="addInputFood">
+			<result name="success">/inputfood/InputFoodlist.jsp</result>
+			<result name="error">/inputfood/InputFoodlist.jsp</result>	
+		</action> 
+		
+		<action name="searchInputFood" class="cn.action.InputFoodAction" method="searchInputFood" >	
+			<result name="success">/inputfood/InputFoodlist.jsp</result>	
+			<result name="error">/inputfood/InputFoodlist.jsp</result>				
+		</action> 
+		
+	  <action name="addinputFood" class="cn.action.InputFoodAction" method="addinputFood">
+		 <interceptor-ref name="testStack"></interceptor-ref>
+			<result name="success">/inputfood/addInputFood.jsp</result>
+			<result name="error">/error.jsp</result>		
+		</action> 
+<!-- 食品入库action -->
+
+<!-- 食品出库action -->
+		<action name="modifyOutputFood" class="cn.action.OutputFoodAction" method="modifyOutputFood">
+			<result name="success">/outputfood/modifyOutputFood.jsp</result>
+			
+		</action>
+		 
+		<action name="saveOutputFood" class="cn.action.OutputFoodAction" method="saveOutputFood">
+			<result name="success">/outputfood/OutputFoodlist.jsp</result>
+			<result name="error">/outputfood/OutputFoodlist.jsp</result>
+		</action>
+		
+		<action name="deleteOutputFood" class="cn.action.OutputFoodAction" method="deleteOutputFood">
+		<interceptor-ref name="testStack"></interceptor-ref>
+			<result name="success">/outputfood/OutputFoodlist.jsp</result>
+			<result name="error">/outputfood/OutputFoodlist.jsp</result>
+		</action>
+		
+	 
+		<action name="addOutputFood" class="cn.action.OutputFoodAction" method="addOutputFood">
+			<result name="success">/outputfood/OutputFoodlist.jsp</result>
+			<result name="error">/outputfood/OutputFoodlist.jsp</result>	
+		</action> 
+		
+		<action name="searchOutputFood" class="cn.action.OutputFoodAction" method="searchOutputFood" >	
+			<result name="success">/outputfood/OutputFoodlist.jsp</result>	
+			<result name="error">/outputfood/OutputFoodlist.jsp</result>				
+		</action> 
+		
+	  <action name="addoutputFood" class="cn.action.OutputFoodAction" method="addoutputFood">
+		 <interceptor-ref name="testStack"></interceptor-ref>
+			<result name="success">/outputfood/addOutputFood.jsp</result>
+			<result name="error">/error.jsp</result>		
+		</action> 
+<!-- 食品出库action -->
+		
+	</package>
+	
+	
+	<package name="json" namespace="/" extends="json-default">
+           <action name="A" class="cn.action.JsonAction" method="A">
+               <result name="success" type="json"></result>
+           </action>
+            <action name="B" class="cn.action.JsonAction" method="B">
+               <result name="success" type="json"></result>
+           </action>
+	</package>
+</struts>
